@@ -1,5 +1,33 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
+  margin: auto;
+  margin-top: 50px;
+  padding: 20px;
+  width: 80%;
+  border: 2px solid red;
+  align-items: center;
+}
+
+.banner{
+   display: flex;
+   flex-direction: row;   
+   justify-content: space-between;
+}
+
+
+/* .banner > div {
+   width: 33%;
+} */
+
+.addScore1,.addScore4,.addScore6,.b_btn,.w_btn {
+    background-color: red;
+    color: white;
+    border-radius: 3px;
+    height: 50px;
+    width: 90px;
+    font-family: 'Times New Roman', Times, serif;
+    margin-left: 10px;
+    margin-bottom: 10px;
 }
 
 .App-logo {
