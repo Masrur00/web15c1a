@@ -1,26 +1,35 @@
-
+import { DisplayScore  } from './components/DisplayScore';
 import './App.css';
-import { winning } from './components/winning';
+
 import { useState } from "react";
 
 
 function App() {
  
-  const findOver = (val)=> {
-      let str = "";
-      str = Math.round(val/6)+"." + (val%6);  // 50 
-      return str;
-  }
+  // const findOver = (val)=> {
+  //     let str = "";
+  //     str = Math.round(val/6)+"." + (val%6);  // 50 
+  //     return str;
+  // }
    
   const [tracker, setTracker] = useState({ score: 76, wicket: 2, ball: 50 });
+  const [over,setOver] = useState((tracker.ball-tracker.ball%6)/6+"."+tracker.ball%6);
+  const [win,setWin]   = useState(false);
+
   const addScore = (val) => {
+    if(tracker.score === 100){
+      setWin(true)      
+    }
     setTracker({...tracker, score:tracker.score+val});
+    
+       
   }
   
 
 
   const addBall = (val) => {   
-    setTracker({...tracker, ball:tracker.ball+val});
+    setTracker({...tracker, ball:tracker.ball+val})          
+    setOver((tracker.ball-tracker.ball%6)/6+"."+tracker.ball%6)  
   }
 
   const addWicket = (val) => {   
@@ -47,12 +56,11 @@ function App() {
         <div>
           Over:{" "}
           <h1 className="overCount">
-            {(tracker.ball >= 6)? findOver(tracker.ball)  : tracker.ball}
+            {over}
+          </h1>
             {/* // Show Over here in the format: "over.ball" eg: 4.5 means 4th over and 5th ball */}
             {/* // if 1 more ball is thrown then over is now 5.0
               // you have to write logic to form this string from current ball number. */}
-
-          </h1>
         </div>
       </div>
 
@@ -62,6 +70,7 @@ function App() {
         <button className="addScore1" onClick={() => addScore(1)}>Add 1</button>
         <button className="addScore4" onClick={() => addScore(4)}>Add 4</button>
         <button className="addScore6" onClick={() => addScore(6)}>Add 6</button>
+
       </div>
 
       <div className="addWicket">
@@ -76,8 +85,8 @@ function App() {
         <button className='b_btn' onClick={() => addBall(1)}>Add 1</button>
       </div>
 
-      {/* If score reaches greater than 100, show text "India Won" without quotes in h1 tag with class name 'status' */}
-      <winning score={tracker.score} />
+      {/* If score reaches greater than 100, show text "India Won" without quotes in h1 tag with class name 'status' */}      
+      {(win)?<DisplayScore className="status" />:""}
     </div>
   );
 }
